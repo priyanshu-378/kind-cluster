@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-service
+  namespace: mysql
+spec:
+  ports:
+    - port: 8080
+      targetPort: 3306
+      protocol: TCP
+  clusterIP: None
+  selector:
+    app: mysql-label

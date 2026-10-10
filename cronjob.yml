@@ -1,0 +1,45 @@
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: kub-cronjob
+  namespace: nginx
+spec:
+  schedule: "* * * * *" 
+  jobTemplate:
+    spec:
+      template:
+        metadata: 
+          name: backup-pod
+          labels:
+            app: backup
+
+        spec:
+          containers:
+            - name: backup-conatiner
+              image: busybox
+              command: 
+                - sh
+                - -c
+                - > 
+                  echo "backup started";
+                  mkdir -p backups &&
+                  mkdir -p demo-data && 
+                  cp -r demo-data backups &&
+                  echo "backup completed";
+              volumeMounts:
+                - name: demo-data-vol
+                  mountPath: /demo-data
+                - name: backups-vol
+                  mountPath: /backups    
+          restartPolicy: OnFailure
+          volumes:
+            - name: demo-data-vol
+              hostPath:
+                path: /demo-data
+                type: DirectoryOrCreate
+            - name: backups-vol
+              hostPath: 
+                path: /backups
+                type: DirectoryOrCreate  
+              
+                 

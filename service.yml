@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-useable
+  namespace: nginx
+spec:
+  selector:
+      app: nginx
+  ports:
+    - port: 80
+      targetPort: 80    

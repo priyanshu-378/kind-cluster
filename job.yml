@@ -1,0 +1,19 @@
+kind: Job
+apiVersion: batch/v1
+metadata: 
+  name: kub-job
+  namespace: nginx
+spec:
+  completions: 2
+  parallelism: 1
+  template:
+    metadata: 
+      name: batch-pod
+      labels:
+        app: batch-pod
+    spec:
+      containers:
+        -  name: batch-container
+           image: busybox
+           command: [ "sh" , "-c" , "echo hello dosto && sleep 10"]
+      restartPolicy: Never  
