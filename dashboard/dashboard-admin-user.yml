@@ -4,21 +4,21 @@ metadata:
   name: admin-user
   namespace: kubernetes-dashboard
 
-
 ---
-
 
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: admin-user-binding
-  namespace: kubernetes-dashboard
-
+  name: adim-user-role-binding
+  namespace: kubetnetes-dashboard
 subjects:
 - kind: ServiceAccount
+  namespace: kubernetes-dashboard  
   name: admin-user
-  namespace: kubernetes-dashboard
 roleRef:
   kind: ClusterRole
   name: cluster-admin
   apiGroup: rbac.authorization.k8s.io
+
+
+
